@@ -1,3 +1,15 @@
+<ul>
+    <li>
+        User name:
+        <b><%= user.username %></b>
+    </li>
+
+    <li>
+        Administrator:
+        <b><%= user.isAdmin ? "Yes" : "No" %></b>
+    </li>
+
+</ul>
 
 <ul>
     <% for (var i in tips) { %>
@@ -11,6 +23,8 @@
 
             <li>
                 <%= tip.text %>
+
+                <%= tip.author %>
 
                 <% if (!accepted && (isAdmin || isQuizAuthor)) { %>
 
