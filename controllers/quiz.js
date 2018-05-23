@@ -157,15 +157,41 @@ exports.check = (req, res, next) => {
     });
 };
 
+
+let prueba = true;
 // GET /quizzes/randomplay
 exports.randomplay = (req, res, next) => {
 
     let toBeResolved = [];
+    
+    //score = 0;
+    //req.session.score = 0;
 
     models.quizzes.findAll()
         .then(quizzes => {
 
+            console.log('----ENTRA--Si--');
+
+            if (prueba){
+
+                req.session.score = 0;
+                
+                req.session.randomplay = quizzes;
+        
+                toBeResolved = quizzes;
+               
+                req.session.randomlength = quizzes.length;
+        
+                //prueba = false;    
+            }
+        
+            prueba = true; 
+            
+
             if (req.session.randomplay == undefined) {
+
+                //req.session.score = 0;
+                console.log('----2ENTRA----');
 
                 req.session.randomplay = quizzes;
 
@@ -175,8 +201,16 @@ exports.randomplay = (req, res, next) => {
 
             }
 
+            if (toBeResolved.length == 0) {
+                toBeResolved = quizzes;
+                //req.session.score = 0;
+            }
+
             if (quizzes) {
+
                 if (toBeResolved != 0) {
+
+                    console.log('----3ENTRA----');
 
                     let rand = parseInt(Math.random() * toBeResolved.length);
 
@@ -228,6 +262,8 @@ exports.randomcheck = (req, res, next) => {
             req.session.score++;
             req.session.randomlength--;
             score = req.session.score;
+            prueba = false;
+
             res.render('quizzes/random_result', {
                 score,
                 answer,
