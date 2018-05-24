@@ -1,11 +1,12 @@
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const { models } = require("../models");
+const paginate = require('../helpers/paginate').paginate;
+
 
 let score = 0;
 let randomlength = 0;
 
-const paginate = require('../helpers/paginate').paginate;
 
 // Autoload the quiz with id equals to :quizId
 exports.load = (req, res, next, quizId) => {
@@ -128,7 +129,8 @@ exports.create = (req, res, next) => {
     const authorId = req.session.user && req.session.user.id || 0;
 
     //const quiz = models.quiz.build({
-    const quiz = models.quizzes.build({
+    const quiz = models.quiz
+    .build({
         question,
         answer,
         authorId
@@ -248,7 +250,7 @@ exports.randomplay = (req, res, next) => {
     //score = 0;
     //req.session.score = 0;
 
-    models.quizzes.findAll()
+    models.quiz.findAll()
         .then(quizzes => {
 
             console.log('----ENTRA--Si--');
