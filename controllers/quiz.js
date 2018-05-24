@@ -272,7 +272,7 @@ exports.randomcheck = (req, res, next) => {
         }
     } else {
 
-        score = 0;
+        //score = 0;
         req.session.score = 0;
         req.session.randomplay = undefined;
         
