@@ -273,9 +273,6 @@ exports.randomplay = (req, res, next) => {
 
             if (req.session.randomplay == undefined) {
 
-                //req.session.score = 0;
-                console.log('----2ENTRA----');
-
                 req.session.randomplay = quizzes;
 
                 toBeResolved = quizzes;
@@ -285,15 +282,14 @@ exports.randomplay = (req, res, next) => {
             }
 
             if (toBeResolved.length == 0) {
+
                 toBeResolved = quizzes;
-                //req.session.score = 0;
+
             }
 
             if (quizzes) {
 
                 if (toBeResolved != 0) {
-
-                    console.log('----3ENTRA----');
 
                     let rand = parseInt(Math.random() * toBeResolved.length);
 
@@ -355,7 +351,6 @@ exports.randomcheck = (req, res, next) => {
         }
     } else {
 
-        score = 0;
         req.session.score = 0;
         req.session.randomplay = undefined;
         
