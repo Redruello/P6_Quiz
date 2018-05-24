@@ -6,6 +6,7 @@ const paginate = require('../helpers/paginate').paginate;
 
 let score = 0;
 let randomlength = 0;
+let prueba = true;
 
 
 // Autoload the quiz with id equals to :quizId
@@ -241,62 +242,39 @@ exports.check = (req, res, next) => {
 };
 
 
-let prueba = true;
 // GET /quizzes/randomplay
 exports.randomplay = (req, res, next) => {
 
     let toBeResolved = [];
-    
-    //score = 0;
-    //req.session.score = 0;
 
     models.quiz.findAll()
         .then(quizzes => {
 
-            console.log('----ENTRA--Si--');
-
             if (prueba){
-
                 req.session.score = 0;
-                
                 req.session.randomplay = quizzes;
-        
                 toBeResolved = quizzes;
-               
-                req.session.randomlength = quizzes.length;
-        
-                //prueba = false;    
+                req.session.randomlength = quizzes.length; 
             }
         
             prueba = true; 
             
-
             if (req.session.randomplay == undefined) {
-
                 req.session.randomplay = quizzes;
-
                 toBeResolved = quizzes;
-
                 req.session.randomlength = quizzes.length;
-
             }
 
             if (toBeResolved.length == 0) {
-
                 toBeResolved = quizzes;
-
             }
 
             if (quizzes) {
-
                 if (toBeResolved != 0) {
-
                     let rand = parseInt(Math.random() * toBeResolved.length);
-
                     let quiz = toBeResolved[rand];
-
+                    
                     toBeResolved.splice(rand, 1);
-
                     score = req.session.score;
 
                     res.render('quizzes/random_play', {
@@ -329,7 +307,6 @@ exports.randomcheck = (req, res, next) => {
     if (result) {
 
         if (req.session.randomlength <= 1) {
-
             score++;
             req.session.score = 0;
             req.session.randomplay = undefined;
