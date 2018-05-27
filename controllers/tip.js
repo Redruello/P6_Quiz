@@ -48,9 +48,9 @@ exports.create = (req, res, next) => {
 // GET /quizzes/:quizId/tips/:tipId/edit
 exports.edit = (req, res, next) => {
 
-    const { tip } = req;
+    const { quiz, tip } = req;
 
-    res.render('tips/edit', { tip });
+    res.render('tips/edit', { quiz, tip });
 };
 
 
